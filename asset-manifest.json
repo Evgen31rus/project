@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/my-app/app.tsx/static/css/main.6bccc528.css",
+    "main.js": "/my-app/app.tsx/static/js/main.cf87c9e9.js",
+    "static/js/787.d4aba7ab.chunk.js": "/my-app/app.tsx/static/js/787.d4aba7ab.chunk.js",
+    "static/media/bigSale.png": "/my-app/app.tsx/static/media/bigSale.7f2557d3f7657b0e46ee.png",
+    "index.html": "/my-app/app.tsx/index.html",
+    "main.6bccc528.css.map": "/my-app/app.tsx/static/css/main.6bccc528.css.map",
+    "main.cf87c9e9.js.map": "/my-app/app.tsx/static/js/main.cf87c9e9.js.map",
+    "787.d4aba7ab.chunk.js.map": "/my-app/app.tsx/static/js/787.d4aba7ab.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6bccc528.css",
+    "static/js/main.cf87c9e9.js"
+  ]
+}
