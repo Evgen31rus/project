@@ -45,12 +45,11 @@ let productSearch = [...ProducName, ...productCategory(),]
 return(
 
 <div>
-    <div className="flex-wrap flex justify-around max-w-[1500px] h-[200px] items-center m-auto
-    max-sm:hidden"
+    <div className="flex-wrap flex justify-around max-w-[1500px] h-[200px] items-center m-aut"
 
     >
       <div className='flex w-[50%] h-[50px]  items-center  border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 
-          max-sm:mt-10      '>
+        sm:mt-[100px]'>
 <div className="flex w-[100%] z-20 p-2 relative box-border justify-center"
  id={`box-shadow`}
 >
@@ -128,12 +127,13 @@ className='w-[100%] h-[40px] ml-1 mr-2 pl-9 rounded outline-0 z-20 cursor-pointe
  ${ !ulRef?.current?.children.length||!isOpen?
   'opacity-0 hidden':
   'opacity-100'}
-  absolute w-[95%] transition-all rounded bg-white max-h-[200px]  mt-8   pt-2 pb-2 overflow-y-scroll box-border z-20 shadow-lg`}
-
-id='scroll-element'>
+  absolute transition-all rounded bg-white max-h-[200px]  mt-7   pt-2 pb-2 overflow-y-scroll box-border z-20 `}
+   style={{
+    width: `${inputSearch.current?.offsetWidth}px`,
+  }}
+>
   <ul 
-  ref={ ulRef}
-  className="w-[100%]">
+  ref={ ulRef}>
 {
 
 productSearch.filter(el=>ProducName[el.toLowerCase().trim().search(value)]).map(el=>
@@ -158,7 +158,9 @@ className=" flex justify-between pt-2 pr-6 pl-6 cursor-pointer hover:bg-[#e5dee6
 
 </div>
 
-<div className="flex z-10 items-center text-2xl"
+<div className="flex z-10 items-center text-2xl
+sm:hidden
+"
 id={`text-shadow`}
 >
 <span className="pr-2">от</span>
@@ -213,7 +215,8 @@ className="w-[100px] h-[40px] pl-8  rounded " />
 </div>
 
   </div>
-  <div className="flex w-[90%] m-auto flex-wrap justify-center items-center mb-8 text-white ">
+  <div className="flex w-[90%] m-auto flex-wrap justify-center items-center mb-8 text-white 
+  sm:hidden">
   <div className="
   icon
   z-10 border-[2px] cursor-pointer rounded border-cyan-300 outline outline-offset-2 outline-pink-500 min-w-[100px] max-w-[150px] min-h-[35px]  mt-3 mr-3 p-2 text-center ease-in transition duration-300 ease-in-out hover:bg-violet-600 hover:tran hover:scale-110"

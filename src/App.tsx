@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useRef, useState , MouseEvent, useEffect} from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createApi } from '@reduxjs/toolkit/query'
 import './App.css';
 
@@ -41,35 +42,28 @@ function App() {
 
 
   return (
+    <BrowserRouter>
    <div className={`font-mono w-100% h-100%  `}
    id={`${!state.switchTeamSlice.nightTeam? 'dark-team': 'light-team' }`}
    >
-      
-                                       { /* this is modal  zone*/ }
-{/* 
-<ModalBuscket/> */}
-
-
 <ModalFilter/>
-
-
-                                     { /* this is components  zone*/ }
-
 <TopMenu/>
 
+<Routes>
+        <Route path="Main" element={<MainPages product={props}/>}/>
+        <Route path="products" element={<ProductPages product={props}/>} />
+        <Route path="Delevery" element={<DeliveryPages product={props} />} />
+        <Route path="Buscket" element={<BuscketPage />} />
+        <Route path="Likes" element={<LikePage  />} />
+      </Routes>
 
-
-{state.switchPages.MainPages?<MainPages product={props}/>:''}
-{state.switchPages.ProductPages?<ProductPages product={props}/>:''}
-{state.switchPages.BuscketPages? <BuscketPage />: ''}
-{state.switchPages.DeleveryPages? <DeliveryPages product={props} />: ''}
-{state.switchPages.likesPages? <LikePage  />: ''} 
 
 <div 
 onClick={()=>dispatch(HandleSwitchTeam())}
 className={` fixed icon
 ${state.switchTeamSlice.nightTeam?'gradient-night-team':''}
-bottom-[20%] left-[0.1%]  w-[100px] bg-[#424e65] h-[40px] flex items-center  rounded-full border-[2px] rounded border-[#ec4899] cursor-pointer z-10 animate-bounce`}
+bottom-[20%] left-[0.1%]  w-[100px] bg-[#424e65] h-[40px] flex items-center  rounded-full border-[2px] rounded border-[#ec4899] cursor-pointer z-10 animate-bounce
+sm:hidden`}
 id={`box-shadow`}
 >
   <svg id="Icons" xmlns="http://www.w3.org/2000/svg" fill={`${state.switchTeamSlice.nightTeam?'#fbec5d':''}`} viewBox="0 0 48 48"
@@ -133,40 +127,34 @@ id={`box-shadow`}
 
   <div className='flex flex-col  w-[100%] translate-x-[20%] '>
 <a
-href='#'
+href='Main'
 onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
-	e.preventDefault()
-	dispatch(HandleSwitchMainPages())
-dispatch(HandleswitchMobileMenu())
-}}
-className={`cusor-pointer z-10  ${state.switchPages.MainPages? 'text-white': ''}  `}
-
->Главная</a>
+dispatch(HandleswitchMobileMenu())}}
+className={`cusor-pointer z-10 `}>
+Главная</a>
 
 <a
-
-href='#' 
+href='Products' 
 onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
-	e.preventDefault()
-	dispatch(HandleSwitchProductPages())
   dispatch(HandleswitchMobileMenu())
 }}
-className={`cusor-pointer z-10  ${state.switchPages.ProductPages? 'text-white': ''} `}>Товары</a>
+className={`cusor-pointer z-10 `}
+>Товары</a>
 
 <a
-href='#'
+href='Delevery'
 onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
-	e.preventDefault()
 	dispatch(HandleSwitchDeleveryPages())
   dispatch(HandleswitchMobileMenu())
 }}
-className={`cusor-pointer z-10  ${state.switchPages.DeleveryPages? 'text-white': ''}  `}>Доставка</a>
+className={`cusor-pointer z-10 `}
+>Доставка</a>
 
 </div>
 </div>
 </div>
 
-
+</BrowserRouter>
 
   );
 }

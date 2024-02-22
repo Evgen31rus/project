@@ -44,13 +44,16 @@ isAdd? setIsAdd(false): setIsAdd(true)
 
     return(
     
-<div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono  `}>
+<div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono 
+sm:100% sm:ml-5`}>
 
   
        
             <div  
 
-            className={`relative text-white border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 rounded box-border min-w-60 max-w-80 h-58 block mr-5  mb-5 flex justify-center flex-col p-5 overflow-hidden transition duration-300 ease-in-out hover:scale-110 `}
+            className={`relative text-white border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 rounded box-border min-w-60 max-w-[500px] max-h-[500px] block mr-5  mb-5 flex justify-center flex-col p-5 overflow-hidden transition duration-300 ease-in-out hover:scale-110 
+            
+            `}
             id={`box-shadow`}
             >
             <div className='w-full  h-full bg-black  absolute opacity-30 m-[-20px] flex rounded z-0 '></div>
@@ -70,7 +73,8 @@ isAdd? setIsAdd(false): setIsAdd(true)
     <div className="flex w-[200px] h-[30px] bg-black mb-2 rounded m-auto ">
     </div>
 }      
-  <div className="relative w-11/12 h-[180px] bg-black border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 z-30 cursor-pointer transition duration-300 ease-in-out">
+  <div className="relative w-[100%] h-[180px] bg-black border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 z-30 cursor-pointer transition duration-300 ease-in-out m-auto
+  ">
             {
                 product.name&&product.category&&product.photo?
                             <div className="   product-front  w-[100%] h-[100%] bg-cover bg-center"
@@ -122,7 +126,9 @@ isAdd? setIsAdd(false): setIsAdd(true)
             ${isMouseOver?'btnInfoActive':'btnInfoNotActive'} 
             ${infoActive?'btnInfoNotActive':'btnInfoActive'} 
             ${product.name&&product.category&&product.photo? 'flex' : 'hidden'}  
-            absolute z-30  icon flex m-auto border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 w-4/11 justify-center mt-2 mb-2 p-2 z-20  ease-in transition duration-300 ease-in-out `} 
+            absolute z-30  icon flex m-auto border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 w-[40%] justify-center mt-2 mb-2 p-2 z-20  ease-in transition duration-300 ease-in-out 
+            sm:max-h-[50px]
+            `} 
             id={`button-gradient`}
             onClick={HandleIsOpenInfo} 
 

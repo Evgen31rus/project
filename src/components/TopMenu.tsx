@@ -34,9 +34,9 @@ id={`text-shadow-p`}
 >
 <a
 ref={switchMainPage}
-href='#'
+href='Main'
 onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
-	e.preventDefault()
+	
 	dispatch(HandleSwitchMainPages())}}
 className={`cusor-pointer z-10 items-center ${state.switchPages.MainPages? ' border-b-[2px] border-cyan-300': ''} mr-2 `}
 
@@ -44,16 +44,15 @@ className={`cusor-pointer z-10 items-center ${state.switchPages.MainPages? ' bor
 
 <a
 ref={switchpProductPage}
-href='#' 
+href='products' 
 onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
-	e.preventDefault()
+
 	dispatch(HandleSwitchProductPages())}}
 className={`cusor-pointer z-10 ${state.switchPages.ProductPages? ' border-b-[2px]  border-cyan-300': ''} mr-2`}>Товары</a>
 
 <a
-href='#'
+href='Delevery'
 onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
-	e.preventDefault()
 	dispatch(HandleSwitchDeleveryPages())}}
 className={`cusor-pointer z-10 ${state.switchPages.DeleveryPages? ' border-b-[2px]  border-cyan-300': ''}`}>Доставка</a>
 
@@ -64,7 +63,7 @@ className={`cusor-pointer z-10 ${state.switchPages.DeleveryPages? ' border-b-[2p
 <div className="flex  w-[250px] justify-between items-center  z-10 
 sm:justify-start
 ">
-
+<a href="Buscket">
 <div className={`
 items-gradient icon
 flex cusor-pointer cusor-pointer justify-around relative rounded items-center ${state.switchTeamSlice.nightTeam? 'bg-white' : 'bg-[#260b2d]'} pl-[2%] pr-[2%]
@@ -72,6 +71,7 @@ sm:mr-5
 `}
 id={`box-shadow`}
 >
+	
 <svg 
 onClick={()=>dispatch(HandleSwitchBuscketPages())}
 className="cursor-pointer z-10" xmlns="http://www.w3.org/2000/svg"  fill="#ec4899" width="40" height="40" viewBox="0 0 24 24">
@@ -81,7 +81,10 @@ className="cursor-pointer z-10" xmlns="http://www.w3.org/2000/svg"  fill="#ec489
 <span className="text-2xl pl-2 text-[#67e8f9]">{countBuscket}</span>
 
 </div>
+</a>
 
+
+<a href="Likes">
 <div className={`
 items-gradient icon
 flex cursor-pointer z-50 justify-around relative rounded items-center ${state.switchTeamSlice.nightTeam? 'bg-white' : ''} pl-[2%] pr-[2%]
@@ -107,8 +110,13 @@ version="1.1"  xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" fill="#ec4899
 </g>
 </svg>
 
+
 <span className="text-2xl h-[100%] pl-2 text-[#67e8f9]">{countLikes}</span>
 </div>
+</a>
+
+
+
 <a href="Sign_in" className="w-[45px] h-[45px] bg-white rounded-full mr-[10px]
 max-sm:absolute max-sm:top-2 max-sm:right-2 sm:hidden
 "
