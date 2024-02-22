@@ -2,9 +2,10 @@ import React, { ChangeEvent, MouseEvent, useRef, useState , RefObject, useEffect
 import backend from "../backend";
 import {  useSelector, useDispatch,  } from 'react-redux'
 import { RootState } from '../store/store';
-import { HandleOpenModal } from '../store/SliceModalFilter'
-import { HandleInputMinDate, HandleInputMaxDate, HandleInputSearch } from "../store/SliceFilter";
-
+import axios from "axios";
+import { HandleInputMinDate, HandleInputMaxDate} from "../store/SliceFilter";
+import { HandleSetResultFetch } from "../store/sliceRequest";
+import IBackendObject from "../modle";
 
 
 export default function HelpZone(){
@@ -16,6 +17,8 @@ export default function HelpZone(){
     let ulRef = useRef() as RefObject<HTMLUListElement> | null
     let inputMin = useRef() as RefObject<HTMLInputElement> | null; 
     let inputMax = useRef() as RefObject<HTMLInputElement> | null; 
+
+    const apiUrl = `https://evgen31rus.github.io/server-platnik-shop/server.json`;
 
 
 let stateMin =  useSelector((state:RootState)=>state.switchFilterPrice.price.minPrice)
@@ -39,7 +42,13 @@ return arr
 }
 let productSearch = [...ProducName, ...productCategory(),]
 
-
+useEffect(()=>{
+  axios.get(apiUrl).then((resp) => {
+    const Products:IBackendObject[]|undefined = resp.data;
+    dispatch(HandleSetResultFetch(Products? Products.filter(el=>el.category.toLowerCase().trim()==value.toLowerCase().trim()):''));
+  })
+  console.log(state.resultFetch.value)
+},[value])
 
 
 return(
@@ -72,53 +81,13 @@ version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
 		c0,76.541,62.286,138.828,138.828,138.828c76.541,0,138.827-62.287,138.827-138.828C371.016,166.026,308.729,103.74,232.188,103.74
 		z"/>
 </g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
 </svg>
 
 <input 
 ref={inputSearch}
 value = {value}
 placeholder="Поиск товара..."
-onChange={(e:ChangeEvent<HTMLInputElement>)=>{
-  !e.currentTarget.value.split('').length?
-  setIsOpen(false)
-  :
-  setIsOpen(true)
-  setValue(e.currentTarget.value)
-  dispatch(HandleInputSearch(value))
-  dispatch(HandleInputMaxDate(state.switchFilterPrice.price.maxPrice))
-  dispatch(HandleInputMinDate(state.switchFilterPrice.price.minPrice))
-}}
-   
+onChange={(e:ChangeEvent<HTMLInputElement>)=>setValue(e.currentTarget.value)}
 type="search" name="" 
 className='w-[100%] h-[40px] ml-1 mr-2 pl-9 rounded outline-0 z-20 cursor-pointer relative shadow-lg drop-shadow-xl
 ' />

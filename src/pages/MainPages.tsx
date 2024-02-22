@@ -9,7 +9,7 @@ import backend from "../backend";
 
 
 type PropTypes ={
-    product:IBackendObject[]
+    product:IBackendObject[]|undefined
         }
 
 

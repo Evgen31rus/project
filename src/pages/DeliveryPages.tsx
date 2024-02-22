@@ -3,7 +3,7 @@ import IBackendObject from "../modle";
 
 
 type PropTypes ={
-    product:IBackendObject[]
+    product:IBackendObject[]|undefined
         }
 
 

@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from "react";
+
 import IBackendObject from "../modle";
 import ProductCard from "../components/ProductCard";
 import HelpZone from "../components/HelpZone";
 import ProductError from '../components/ProductError';
 import { RootState } from "../store/store";
 import { useSelector, useDispatch } from "react-redux";
-import { CSSTransition } from "react-transition-group";
-import { HandleInputSearch } from "../store/SliceFilter";
+
 
 
 type PropTypes ={
-    product:IBackendObject[]
+    product:IBackendObject[]|undefined
         }
 
 
 export default function ProductPages({product}:PropTypes){
-   let state = useSelector((state:RootState) => state)
-   let stateMin = useSelector((state:RootState) => state.switchFilterPrice.price.minPrice)
-   let stateMax = useSelector((state:RootState) => state.switchFilterPrice.price.maxPrice)
    let stateSearch = useSelector((state:RootState) => state.switchFilterPrice.search)
-   let dispatch = useDispatch()
 
 
 

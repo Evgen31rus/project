@@ -7,6 +7,7 @@ import sliceSwitchFilterPriceReducer from './SliceFilter'
 import switchTeamSliceReducer from './SliceTeam'
 import switchSliderReducer from './sliceSlider'
 import sliceSwitchMobileMenu from './sliceSwitchMobileMenu'
+import sliceRequest from './sliceRequest'
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     switchTeamSlice: switchTeamSliceReducer,
     switchSlider:switchSliderReducer,
     switchMobileMenu:sliceSwitchMobileMenu,
+    resultFetch:sliceRequest,
   },
 })
 
