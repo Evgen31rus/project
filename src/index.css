@@ -23,7 +23,11 @@ background: -webkit-linear-gradient(45deg, rgb(231, 224, 236) 10%, rgb(128, 90, 
 background: -moz-linear-gradient(45deg, rgb(231, 224, 236) 10%, rgb(128, 90, 213) 77%);
 background: linear-gradient(45deg, rgb(231, 224, 236) 10%, rgb(128, 90, 213) 77%);
 }
-
+.button-gradient{
+background: -webkit-linear-gradient(45deg, rgb(231, 224, 236) 10%, rgb(128, 90, 213) 77%);
+background: -moz-linear-gradient(45deg, rgb(231, 224, 236) 10%, rgb(128, 90, 213) 77%);
+background: linear-gradient(45deg, rgb(231, 224, 236) 10%, rgb(128, 90, 213) 77%);
+}
 .items-gradient{
   background: -webkit-linear-gradient(315deg, rgb(140, 95, 174), rgb(38, 11, 45) 100%);
   background: -moz-linear-gradient(315deg, rgb(140, 95, 174), rgb(38, 11, 45) 100%);

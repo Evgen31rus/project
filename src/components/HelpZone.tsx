@@ -6,14 +6,22 @@ import axios from "axios";
 import { HandleInputMinDate, HandleInputMaxDate} from "../store/SliceFilter";
 import { HandleSetResultFetch } from "../store/sliceRequest";
 import IBackendObject from "../modle";
+import ButtonMain from "./ButtonMain";
+
 
 
 export default function HelpZone(){
+  let state = useSelector((state:RootState)=>state)
+  let arrayPrice = ()=>state.resultFetch.inishialValue?state.resultFetch.inishialValue.map(el => el.price):[0,0]
+  let stateMax =  Math.max(...arrayPrice())
+  let stateMin =  Math.min(...arrayPrice())
+
    const [value, setValue] = useState<string>('');
    const [isOpen, setIsOpen] = useState(false)
+   const [searchMaxPrice, setSearchMaxPrice ] = useState<number>(stateMax)
+   const [searchMinPrice, setSearchMinPrice ] = useState<number>(stateMin)
     let dispatch = useDispatch()
     let stateNow = useSelector((state:RootState) => state.resultFetch.value)
-    let stateInitial = useSelector((state:RootState) => state.resultFetch.inishialValue)
     let inputSearch = useRef() as RefObject<HTMLInputElement> 
     let ulRef = useRef() as RefObject<HTMLUListElement> | null
     let inputMin = useRef() as RefObject<HTMLInputElement> | null; 
@@ -22,20 +30,36 @@ export default function HelpZone(){
     const apiUrl = `https://evgen31rus.github.io/server-platnik-shop/server.json`;
 
 
-let stateMin =  useSelector((state:RootState)=>state.switchFilterPrice.price.minPrice)
-let stateMax =  useSelector((state:RootState)=>state.switchFilterPrice.price.maxPrice)
 
+const productCategory=()=>{
+  let arr:string[] = []
+if(state.resultFetch.inishialValue){
+  state.resultFetch.inishialValue.map(product =>
+    {
+    arr.push(product.category)
+    if(arr.filter(el => el === product.category).length>1){
+      arr.pop()
+    }
+  }
+    )
+}
+return arr
+}
+
+
+const arrStateNow = ()=> stateNow? stateNow : []
+const search = [ ...arrStateNow() ]
+search.filter(category => category.toString().trim() === value.toLowerCase().trim())
 
 useEffect(()=>{
   axios.get(apiUrl).then((resp) => {
-    const Products:IBackendObject[]|undefined = resp.data;
-    
-    const FilterFunction = (searchText:string, array:IBackendObject[]|undefined )=>{
-      dispatch(HandleSetResultFetch(array!==undefined&&array.length? array.filter(el=>el.category.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())||el.name.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())) : ''))
+    const products:IBackendObject[]|undefined = resp.data;
+    const FilterFunction = (searchText:string, array:IBackendObject[]|undefined, minPrice:number, maxPrice:number )=>{
+      dispatch(HandleSetResultFetch(array!==undefined&&array.length? array.filter(el=> el.category.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())&&el.price>=minPrice&&el.price<=maxPrice||el.name.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())&&el.price>=minPrice&&el.price<=maxPrice||el.name.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())&&el.price>=minPrice&&el.price<=maxPrice): '' ))
     }
-    FilterFunction(value,Products)
+    FilterFunction(value, products,searchMinPrice, searchMaxPrice )
   })
-},[value])
+},[ searchMinPrice, searchMaxPrice, value])
 
 
 return(
@@ -103,21 +127,19 @@ className='w-[100%] h-[40px] ml-1 mr-2 pl-9 rounded outline-0 z-20 cursor-pointe
   >
 
 {
-  stateNow&&stateNow.length? stateNow.map(el=> 
+search.map(el=>
 
 <li 
 onClick={(e:MouseEvent<HTMLLIElement>)=> {
-  setValue(e.currentTarget.innerText)
+  setValue(el.name)
   setIsOpen(false)
 }
 }
 className=" flex justify-between pt-2 pr-6 pl-6 cursor-pointer hover:bg-[#e5dee6] hover:shadow-lg ">
-<span className="flex">{el.name}</span> <img src={el.photo} alt="" className={`rounded w-[35px] h-[30px]`}/>
+<span className="flex w-[60%]">{el.name}</span><span className="flex w-[20%]">{el.category}</span> <img src={el.photo} alt="" className={`flex w-[20%] rounded w-[35px] h-[30px]`}/>
 </li>
-):
-null
+)}
 
-}
 
 </ul>
 
@@ -134,74 +156,60 @@ id={`text-shadow`}
 >
 <span className="pr-2">от</span>
 
-{/* <input 
+<input 
 ref={inputMin}
+value={searchMinPrice}
 placeholder={stateMin.toString()}
 onChange={(e: ChangeEvent<HTMLInputElement>)=>{
-  const regEx = /[^\d\+]/g;
-
-    if(Number(e.currentTarget.value.replace(regEx, ''))<0){
-        e.currentTarget.value='0'
+  if(!isNaN(Number(e.currentTarget.value))){
+    setSearchMinPrice(Number(e.currentTarget.value))
+  }
+    if(Number(e.currentTarget.value)<0){
+      setSearchMinPrice(searchMinPrice)
     }
-    if(Number(e.currentTarget.value)>stateMax){
-        e.currentTarget.value = stateMax.toString().replace(regEx, '')
+    if(Number(e.currentTarget.value)>=stateMax){
+      setSearchMinPrice(stateMax)
     }
-    else{
-        dispatch(HandleInputMinDate(Number(e.currentTarget.value.replace(regEx, ''))))
-        
-    }
-        
         
 }}
 type="text" name="" 
 id={`box-shadow`} 
 className="w-[100px] h-[40px] pl-8  rounded " 
-/> */}
+/>
 
 
 <span className="pl-2 pr-2 ml-4">до</span>
 
-{/* <input 
+<input 
 ref={inputMax}
+value={searchMaxPrice}
 placeholder={stateMax.toString()}
 onChange={(e: ChangeEvent<HTMLInputElement>)=>{
-  const regEx = /[^\d\+]/g;
-    if(Number(e.currentTarget.value.replace(regEx, ''))<0){
-        e.currentTarget.value='0'
+  if(!isNaN(Number(e.currentTarget.value))){
+    setSearchMaxPrice(Number(e.currentTarget.value))
+  }
+    if(Number(e.currentTarget.value)<0){
+      setSearchMaxPrice(searchMinPrice)
     }
-    if(Number(e.currentTarget.value.replace(regEx, ''))>Math.max(...ProducName().map(el => el.price))){
-        e.currentTarget.value =  Math.max(...backend.map(el => el.price)).toString().replace(regEx, '')
-    }else{
-        dispatch(HandleInputMaxDate(Number(e.currentTarget.value.replace(regEx, ''))))
-       
+    if(Number(e.currentTarget.value)>=stateMax){
+      setSearchMaxPrice(stateMax)
     }
-    
     
 }}
 type="text" name="" 
 id={`box-shadow`}
-className="w-[100px] h-[40px] pl-8  rounded " /> */}
+className="w-[100px] h-[40px] pl-8  rounded " />
 </div>
 
   </div>
-  <div className="flex w-[90%] m-auto flex-wrap justify-center items-center mb-8 text-white 
+  <div className="flex w-[90%] max-h-[200px] m-auto flex-wrap justify-center items-center mb-8 text-white 
   sm:hidden">
-  <div className="
-  icon
-  z-10 border-[2px] cursor-pointer rounded border-cyan-300 outline outline-offset-2 outline-pink-500 min-w-[100px] max-w-[150px] min-h-[35px]  mt-3 mr-3 p-2 text-center ease-in transition duration-300 ease-in-out hover:bg-violet-600 hover:tran hover:scale-110"
-  id={`button-gradient`}
-  > 
-    Всё</div>
-    {/* {
+<ButtonMain TextNotActive={`Все`} width={15} isClickProps={true}/>
+    {
   productCategory().map(el=>
-    <div className="
-    icon
-    z-10 border-[2px] cursor-pointer rounded border-cyan-300 outline outline-offset-2 outline-pink-500 min-w-[100px] max-w-[200px] min-h-[35px]  mt-3 mr-3 p-2 text-center ease-in transition duration-300 ease-in-out hover:bg-violet-600 hover:tran hover:scale-110"
-    id={`button-gradient`}
-    > 
-    {el}</div>
+<ButtonMain TextNotActive={el} isClickProps={true}/>
   )
-} */}
+}
     </div>
     </div>
 
