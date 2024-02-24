@@ -12,7 +12,7 @@ export default function SwitchTeam(){
 onClick={()=>dispatch(HandleSwitchTeam())}
 className={` fixed icon
 ${state.switchTeamSlice.nightTeam?'gradient-night-team':''}
-bottom-[20%] left-[0.1%]  w-[100px] bg-[#424e65] h-[40px] flex items-center  rounded-full border-[2px] rounded border-[#ec4899] cursor-pointer z-10 animate-bounce
+bottom-[20%] left-[0.1%]  w-[100px] bg-[#424e65] h-[40px] flex items-center  rounded-full border-[2px] rounded border-[#ec4899] cursor-pointer z-40 animate-bounce
 sm:hidden`}
 id={`box-shadow`}
 >

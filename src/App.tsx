@@ -18,12 +18,16 @@ import { RootState } from './store/store';
 import MobileMenu from './components/mobileMenu';
 import SwitchTeam from './components/SwitchTeam';
 import { HandleSetResultFetch } from './store/sliceRequest';
+import SpinerPagesLoading from './components/SpinerPagesLoading';
+import { stat } from 'fs';
+import IBackendObject from './modle';
+import { HandleAddInishialStateFetch } from './store/sliceRequest';
 
 function App() {
 
   let dispatch = useDispatch()
   let state = useSelector((state:RootState) => state)
-
+  const props = state.resultFetch.value
 
 
 
@@ -32,12 +36,12 @@ function App() {
     const apiUrl = 'https://evgen31rus.github.io/server-platnik-shop/server.json';
     axios.get(apiUrl).then((resp) => {
       const allPersons = resp.data;
+      dispatch(HandleAddInishialStateFetch(allPersons))
       dispatch(HandleSetResultFetch(allPersons));
     });
   }, [])
 
 
-  let props:BackendObject[]|undefined =state.resultFetch.value;
 
 
   return (
@@ -57,24 +61,12 @@ function App() {
   <Route path="Likes" element={<LikePage  />} />
 </Routes>
   :
-  <div className='w-[100%] h-[80vh] flex justify-center'
-  id={`${!state.switchTeamSlice.nightTeam? 'dark-team': 'light-team' }`}
-  >
-<div className="spinner">
-  <div className="spinner-circle spinner-circle-outer"></div>
-  <div className="spinner-circle-off spinner-circle-inner"></div>
-  <div className="spinner-circle spinner-circle-single-1"></div>
-  <div className="spinner-circle spinner-circle-single-2"></div>
-  <div className="text ">...Loading...</div>
-</div>
-</div>
+  <SpinerPagesLoading/>
 }
-
-
-
     <SwitchTeam/>
 
     <Footer/>
+
     <MobileMenu/>
 
   </div>

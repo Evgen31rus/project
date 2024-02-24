@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { stat } from "fs";
 import ProductInBuscket from "../components/ProductInBuscket";
-import ProductError from "../components/ProductError";
+import ProductError from "../components/ProductCard/ProductError";
 
 
 

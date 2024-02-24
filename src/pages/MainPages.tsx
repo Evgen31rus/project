@@ -6,6 +6,7 @@ import { RootState , } from '../store/store';
 import { HandleswitchRight, HandleswitchLeft } from "../store/sliceSlider";
 import SliderTop from "../components/SliderTop";
 import backend from "../backend";
+import ButtonMain from "../components/ButtonMain";
 
 
 type PropTypes ={
@@ -48,8 +49,8 @@ return(
     <h1 className="text-white text-center pt-2 ">Товары для геймеров</h1>
 
     <div className="flex w-[100%] justify-around ">
-    <button className="icon w-[40%] flex absolute flex z-50  p-2  text-white border-[2px]   rounded border-cyan-300 outline outline-offset-2 outline-pink-500  hover:bg-violet-600 ease-in transition duration-300 ease-in-out hover:text-black">  подробнее</button>
-    <button className="icon w-[40%] flex absolute flex z-50  p-2  text-white border-[2px]   rounded border-cyan-300 outline outline-offset-2 outline-pink-500  hover:bg-violet-600 ease-in transition duration-300 ease-in-out hover:text-black">  подробнее</button>
+    <ButtonMain width={40} TextNotActive="подробнее" TextActive="Скрыть"/>
+
     </div>
 
     </div>
@@ -63,7 +64,7 @@ return(
     <div className="icon w-[100%] h-[100%]  bg-footer-texture bg-cover ease-in transition duration-300 ease-in-out hover:scale-110">
     <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-20"></div>
 
-    <button className="icon absolute flex z-50  p-2  text-white border-[2px] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded border-cyan-300 outline outline-offset-2 outline-pink-500  hover:bg-violet-600 ease-in transition duration-300 ease-in-out hover:text-black">  подробнее</button>
+    <ButtonMain width={40} TextNotActive="подробнее" TextActive="Скрыть"/>
 
     
     </div>
@@ -76,7 +77,7 @@ return(
     >
     <div className="icon w-[100%] h-[100%]  bg-foo bg-cover ease-in transition duration-300 ease-in-out hover:scale-110">
     <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-20"></div>
-    <button className="icon absolute flex z-50  p-2  text-white border-[2px] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded border-cyan-300 outline outline-offset-2 outline-pink-500  hover:bg-violet-600 ease-in transition duration-300 ease-in-out hover:text-black">  подробнее</button>
+    <ButtonMain width={40} TextNotActive="подробнее" TextActive="Скрыть"/>
     </div>
     </div>
 

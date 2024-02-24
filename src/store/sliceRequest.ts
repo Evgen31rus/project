@@ -3,13 +3,15 @@ import IBackendObject from '../modle'
 
 
 export interface resultFetch {
-    value:IBackendObject[]|undefined
+    value:IBackendObject[]|undefined,
+    inishialValue:IBackendObject[]|undefined
   
 }
 
 
 const initialState: resultFetch = {
-    value: undefined
+    value: undefined,
+    inishialValue:undefined
 }
 
 export const counterSlice = createSlice({
@@ -20,11 +22,16 @@ export const counterSlice = createSlice({
 const data:IBackendObject[]|undefined  = actions.payload
 state.value = data
     },
+    
+    HandleAddInishialStateFetch: (state, actions) =>{
+        const data:IBackendObject[]  = actions.payload
+        state.inishialValue = data
+    }
 }
 }
 )
 
 
-export const { HandleSetResultFetch } = counterSlice.actions
+export const { HandleSetResultFetch , HandleAddInishialStateFetch} = counterSlice.actions
 
 export default counterSlice.reducer

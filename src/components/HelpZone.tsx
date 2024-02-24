@@ -1,5 +1,5 @@
 import React, { ChangeEvent, MouseEvent, useRef, useState , RefObject, useEffect} from "react";
-import backend from "../backend";
+// import backend from "../backend";
 import {  useSelector, useDispatch,  } from 'react-redux'
 import { RootState } from '../store/store';
 import axios from "axios";
@@ -12,7 +12,8 @@ export default function HelpZone(){
    const [value, setValue] = useState<string>('');
    const [isOpen, setIsOpen] = useState(false)
     let dispatch = useDispatch()
-    let state = useSelector((state:RootState) => state)
+    let stateNow = useSelector((state:RootState) => state.resultFetch.value)
+    let stateInitial = useSelector((state:RootState) => state.resultFetch.inishialValue)
     let inputSearch = useRef() as RefObject<HTMLInputElement> 
     let ulRef = useRef() as RefObject<HTMLUListElement> | null
     let inputMin = useRef() as RefObject<HTMLInputElement> | null; 
@@ -25,40 +26,26 @@ let stateMin =  useSelector((state:RootState)=>state.switchFilterPrice.price.min
 let stateMax =  useSelector((state:RootState)=>state.switchFilterPrice.price.maxPrice)
 
 
-const ProducName = backend.map(el=> el.name)
-
-
-let productCategory = ()=>{
-  let arr:string[]=[]
-
-  backend.map(el=>{
-  arr.push(el.category)
-
-  if(arr.filter(elem=>elem.toLowerCase().trim()===el.category.toLowerCase().trim()).length>1){
-arr.pop()
-  }
-})
-return arr
-}
-let productSearch = [...ProducName, ...productCategory(),]
-
 useEffect(()=>{
   axios.get(apiUrl).then((resp) => {
     const Products:IBackendObject[]|undefined = resp.data;
-    dispatch(HandleSetResultFetch(Products? Products.filter(el=>el.category.toLowerCase().trim()==value.toLowerCase().trim()):''));
+    
+    const FilterFunction = (searchText:string, array:IBackendObject[]|undefined )=>{
+      dispatch(HandleSetResultFetch(array!==undefined&&array.length? array.filter(el=>el.category.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())||el.name.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())) : ''))
+    }
+    FilterFunction(value,Products)
   })
-  console.log(state.resultFetch.value)
 },[value])
 
 
 return(
 
 <div>
-    <div className="flex-wrap flex justify-around max-w-[1500px] h-[200px] items-center m-aut"
+    <div className="flex-wrap flex justify-around max-w-[1500px] h-[200px] items-center m-aut relative m-auto"
 
     >
       <div className='flex w-[50%] h-[50px]  items-center  border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 
-        sm:mt-[100px]'>
+        sm:mt-[100px] sm:w-[85%]'>
 <div className="flex w-[100%] z-20 p-2 relative box-border justify-center"
  id={`box-shadow`}
 >
@@ -87,7 +74,14 @@ version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
 ref={inputSearch}
 value = {value}
 placeholder="Поиск товара..."
-onChange={(e:ChangeEvent<HTMLInputElement>)=>setValue(e.currentTarget.value)}
+onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+  setIsOpen(true)
+  setValue(e.currentTarget.value)
+  if(!e.currentTarget.value){
+    setIsOpen(false)
+  }
+}
+ }
 type="search" name="" 
 className='w-[100%] h-[40px] ml-1 mr-2 pl-9 rounded outline-0 z-20 cursor-pointer relative shadow-lg drop-shadow-xl
 ' />
@@ -96,29 +90,35 @@ className='w-[100%] h-[40px] ml-1 mr-2 pl-9 rounded outline-0 z-20 cursor-pointe
  ${ !ulRef?.current?.children.length||!isOpen?
   'opacity-0 hidden':
   'opacity-100'}
-  absolute transition-all rounded bg-white max-h-[200px]  mt-7   pt-2 pb-2 overflow-y-scroll box-border z-20 `}
+  absolute transition-all rounded bg-white max-h-[200px]  ml-[-1.5px] pt-2 pb-2 overflow-y-scroll box-border z-20 `}
    style={{
-    width: `${inputSearch.current?.offsetWidth}px`,
+    width: `${inputSearch.current?.offsetHeight? inputSearch.current?.offsetWidth+2 : undefined}px`,
+    marginTop: `${inputSearch.current?.offsetHeight? inputSearch.current?.offsetHeight-6 : undefined}px`
   }}
+  id={`scroll-element`}
 >
   <ul 
-  ref={ ulRef}>
-{
+  ref={ ulRef}
+ 
+  >
 
-productSearch.filter(el=>ProducName[el.toLowerCase().trim().search(value)]).map(el=>
-  backend.filter(elem=> elem.name===el||elem.category===el).map(element => 
+{
+  stateNow&&stateNow.length? stateNow.map(el=> 
+
 <li 
-onClick={(e:MouseEvent<HTMLLIElement>)=>{
-setIsOpen(false)
-setValue(e.currentTarget.innerText)
+onClick={(e:MouseEvent<HTMLLIElement>)=> {
+  setValue(e.currentTarget.innerText)
+  setIsOpen(false)
 }
 }
 className=" flex justify-between pt-2 pr-6 pl-6 cursor-pointer hover:bg-[#e5dee6] hover:shadow-lg ">
-  
-  <span className="flex">{el}</span> <img src={element.photo} alt="" className={`${el.toLowerCase().trim()==element.category.toLowerCase().trim()? 'hidden': 'visible'} rounded w-[35px] h-[30px]`}/>
-  </li>
-))
+<span className="flex">{el.name}</span> <img src={el.photo} alt="" className={`rounded w-[35px] h-[30px]`}/>
+</li>
+):
+null
+
 }
+
 </ul>
 
 </div>
@@ -134,7 +134,7 @@ id={`text-shadow`}
 >
 <span className="pr-2">от</span>
 
-<input 
+{/* <input 
 ref={inputMin}
 placeholder={stateMin.toString()}
 onChange={(e: ChangeEvent<HTMLInputElement>)=>{
@@ -156,12 +156,12 @@ onChange={(e: ChangeEvent<HTMLInputElement>)=>{
 type="text" name="" 
 id={`box-shadow`} 
 className="w-[100px] h-[40px] pl-8  rounded " 
-/>
+/> */}
 
 
 <span className="pl-2 pr-2 ml-4">до</span>
 
-<input 
+{/* <input 
 ref={inputMax}
 placeholder={stateMax.toString()}
 onChange={(e: ChangeEvent<HTMLInputElement>)=>{
@@ -169,7 +169,7 @@ onChange={(e: ChangeEvent<HTMLInputElement>)=>{
     if(Number(e.currentTarget.value.replace(regEx, ''))<0){
         e.currentTarget.value='0'
     }
-    if(Number(e.currentTarget.value.replace(regEx, ''))>Math.max(...backend.map(el => el.price))){
+    if(Number(e.currentTarget.value.replace(regEx, ''))>Math.max(...ProducName().map(el => el.price))){
         e.currentTarget.value =  Math.max(...backend.map(el => el.price)).toString().replace(regEx, '')
     }else{
         dispatch(HandleInputMaxDate(Number(e.currentTarget.value.replace(regEx, ''))))
@@ -180,7 +180,7 @@ onChange={(e: ChangeEvent<HTMLInputElement>)=>{
 }}
 type="text" name="" 
 id={`box-shadow`}
-className="w-[100px] h-[40px] pl-8  rounded " />
+className="w-[100px] h-[40px] pl-8  rounded " /> */}
 </div>
 
   </div>
@@ -192,7 +192,7 @@ className="w-[100px] h-[40px] pl-8  rounded " />
   id={`button-gradient`}
   > 
     Всё</div>
-    {
+    {/* {
   productCategory().map(el=>
     <div className="
     icon
@@ -201,7 +201,7 @@ className="w-[100px] h-[40px] pl-8  rounded " />
     > 
     {el}</div>
   )
-}
+} */}
     </div>
     </div>
 
