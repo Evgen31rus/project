@@ -13,9 +13,10 @@ handleRemove?: any,
 hedleAny?:any,
 dateParents?:IBackendObject|undefined
 isClickProps?:boolean,
+color?:string
 }
 
-export default function ButtonMain({width,TextActive, TextNotActive, handleAdd, handleRemove, dateParents, hedleAny, isClickProps}:PropTypes, ){
+export default function ButtonMain({width,TextActive, TextNotActive, handleAdd, handleRemove, dateParents, hedleAny, isClickProps, color}:PropTypes, ){
     const [isClick, setIsClick]= useState(false)
 
     const HandleIsClick = ()=>{
@@ -35,8 +36,9 @@ if(handleAdd&&handleRemove&&dateParents!==undefined){
 }
 
 }}
-    className={`w-[${width}%] icon flex m-2 border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500   justify-center mt-2 mb-2 p-2 z-10  ease-in transition duration-300 ease-in-out  hover:scale-110 
+    className={`w-[${width}%] text-${color} icon opacity-100 flex m-2 border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500   justify-center mt-2 mb-2 p-2 z-10  ease-in transition duration-300 ease-in-out  hover:scale-110 
     ${isClickProps&&isClick? 'button-gradient' : ''}
+    sm:max-w-[${width}%] sm:text-xs
     `} 
              id={`button-gradient`}
                >

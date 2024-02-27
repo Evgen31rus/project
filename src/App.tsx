@@ -19,15 +19,16 @@ import MobileMenu from './components/mobileMenu';
 import SwitchTeam from './components/SwitchTeam';
 import { HandleSetResultFetch } from './store/sliceRequest';
 import SpinerPagesLoading from './components/SpinerPagesLoading';
-import { stat } from 'fs';
 import IBackendObject from './modle';
 import { HandleAddInishialStateFetch } from './store/sliceRequest';
+import ButtonMain from './components/ButtonMain';
+import Authorization from './pages/Authorization';
 
 function App() {
 
   let dispatch = useDispatch()
   let state = useSelector((state:RootState) => state)
-  const props = state.resultFetch.value
+  const props:IBackendObject[]|undefined = state.resultFetch.value
 
 
 
@@ -35,13 +36,27 @@ function App() {
   useEffect(()=>{
     const apiUrl = 'https://evgen31rus.github.io/server-platnik-shop/server.json';
     axios.get(apiUrl).then((resp) => {
-      const allPersons = resp.data;
-      dispatch(HandleAddInishialStateFetch(allPersons))
-      dispatch(HandleSetResultFetch(allPersons));
+      const allProducts:IBackendObject[]|undefined = resp.data;
+      dispatch(HandleAddInishialStateFetch(allProducts))
+      dispatch(HandleSetResultFetch(allProducts));
+      console.log(state.resultFetch.value)
     });
   }, [])
 
-
+  const productCategory=()=>{
+    let arr:string[] = []
+  if(state.resultFetch.inishialValue){
+    state.resultFetch.inishialValue.map(product =>
+      {
+      arr.push(product.category)
+      if(arr.filter(el => el === product.category).length>1){
+        arr.pop()
+      }
+    }
+      )
+  }
+  return arr
+  }
 
 
   return (
@@ -49,7 +64,9 @@ function App() {
   <div className={`font-mono w-100% h-100%  `}
    id={`${!state.switchTeamSlice.nightTeam? 'dark-team': 'light-team' }`}
   >
-    <ModalFilter/>
+  <ModalFilter 
+  buttonCategory={productCategory().map(el =><ButtonMain TextNotActive={el} isClickProps={true}/>)} 
+  buttonСonfirmation={<ButtonMain TextNotActive={'Применить'} width={50}/>}/> 
     <TopMenu/>
 {
   state.resultFetch.value!==undefined?
@@ -59,6 +76,7 @@ function App() {
   <Route path="Delevery" element={<DeliveryPages product={props} />} />
   <Route path="Buscket" element={<BuscketPage />} />
   <Route path="Likes" element={<LikePage  />} />
+  <Route path='Sign_in' element={<Authorization/>}/>
 </Routes>
   :
   <SpinerPagesLoading/>

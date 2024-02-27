@@ -7,6 +7,7 @@ import { HandleInputMinDate, HandleInputMaxDate} from "../store/SliceFilter";
 import { HandleSetResultFetch } from "../store/sliceRequest";
 import IBackendObject from "../modle";
 import ButtonMain from "./ButtonMain";
+import { HandleOpenModal } from "../store/SliceModalFilter";
 
 
 
@@ -31,20 +32,7 @@ export default function HelpZone(){
 
 
 
-const productCategory=()=>{
-  let arr:string[] = []
-if(state.resultFetch.inishialValue){
-  state.resultFetch.inishialValue.map(product =>
-    {
-    arr.push(product.category)
-    if(arr.filter(el => el === product.category).length>1){
-      arr.pop()
-    }
-  }
-    )
-}
-return arr
-}
+
 
 
 const arrStateNow = ()=> stateNow? stateNow : []
@@ -58,18 +46,22 @@ useEffect(()=>{
       dispatch(HandleSetResultFetch(array!==undefined&&array.length? array.filter(el=> el.category.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())&&el.price>=minPrice&&el.price<=maxPrice||el.name.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())&&el.price>=minPrice&&el.price<=maxPrice||el.name.toLowerCase().trim().includes(searchText.toLocaleLowerCase().trim())&&el.price>=minPrice&&el.price<=maxPrice): '' ))
     }
     FilterFunction(value, products,searchMinPrice, searchMaxPrice )
+    console.log(products)
   })
-},[ searchMinPrice, searchMaxPrice, value])
+
+},[  value, searchMinPrice, searchMaxPrice])
+
 
 
 return(
 
 <div>
-    <div className="flex-wrap flex justify-around max-w-[1500px] h-[200px] items-center m-aut relative m-auto"
+    <div className="flex-wrap flex justify-around max-w-[1500px] h-[200px] items-center m-aut relative m-auto
+    "
 
     >
       <div className='flex w-[50%] h-[50px]  items-center  border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 
-        sm:mt-[100px] sm:w-[85%]'>
+        sm:mt-[100px] sm:w-[80%]'>
 <div className="flex w-[100%] z-20 p-2 relative box-border justify-center"
  id={`box-shadow`}
 >
@@ -135,8 +127,8 @@ onClick={(e:MouseEvent<HTMLLIElement>)=> {
   setIsOpen(false)
 }
 }
-className=" flex justify-between pt-2 pr-6 pl-6 cursor-pointer hover:bg-[#e5dee6] hover:shadow-lg ">
-<span className="flex w-[60%]">{el.name}</span><span className="flex w-[20%]">{el.category}</span> <img src={el.photo} alt="" className={`flex w-[20%] rounded w-[35px] h-[30px]`}/>
+className=" flex justify-between pt-2 pr-6 pl-6 cursor-pointer hover:bg-[#e5dee6] hover:shadow-lg sm:text-xs ">
+<span className="flex w-[60%] sm:w-[80%]">{el.name}</span><span className="flex w-[20%] sm:hidden">{el.category}</span> <img src={el.photo} alt="" className={`flex w-[20%] rounded w-[35px] h-[30px] `}/>
 </li>
 )}
 
@@ -147,6 +139,11 @@ className=" flex justify-between pt-2 pr-6 pl-6 cursor-pointer hover:bg-[#e5dee6
 
 </div>
 
+</div>
+<div className="cursor-pointer hover:scale-150 z-20 sm:hidden "
+onClick={()=>dispatch(HandleOpenModal())}
+>
+<svg version="1.1" id="Layer_1"width={'30'} fill={`${state.switchTeamSlice.nightTeam? '': '#ffffff'}`}xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 122.23 122.88" ><style type="text/css"></style><g><path  d="M122.23,12.35v10.54c0,1.29-1.21,2.35-2.69,2.35H77.85c-2.84,5.92-8.89,10.01-15.9,10.01 c-7,0-13.05-4.09-15.89-10.01H2.69C1.22,25.24,0,24.18,0,22.89V12.35C0,11.06,1.21,10,2.69,10h43.37c2.84-5.92,8.89-10,15.89-10 c7,0,13.05,4.09,15.89,10h41.69C121.02,10,122.23,11.06,122.23,12.35L122.23,12.35L122.23,12.35z M49.57,112.88 c-2.84,5.92-8.89,10-15.9,10c-7,0-13.05-4.08-15.89-10l-15.09,0c-1.48,0-2.69-1.06-2.69-2.35V99.99c0-1.29,1.21-2.35,2.69-2.35 l15.09,0c2.84-5.92,8.89-10.01,15.89-10.01c7,0,13.05,4.09,15.89,10.01h69.97c1.48,0,2.69,1.06,2.69,2.35v10.54 c0,1.29-1.22,2.35-2.69,2.35L49.57,112.88L49.57,112.88z M104.12,69.73c-2.84,5.92-8.89,10.01-15.89,10.01 c-7,0-13.05-4.09-15.9-10.01H2.69C1.22,69.73,0,68.67,0,67.38V56.85c0-1.29,1.21-2.35,2.69-2.35h69.64c2.84-5.92,8.89-10,15.89-10 c7,0,13.05,4.09,15.89,10h15.42c1.48,0,2.69,1.06,2.69,2.35v10.53c0,1.29-1.21,2.35-2.69,2.35H104.12L104.12,69.73z"/></g></svg>
 </div>
 
 <div className="flex z-10 items-center text-2xl
@@ -202,15 +199,7 @@ className="w-[100px] h-[40px] pl-8  rounded " />
 </div>
 
   </div>
-  <div className="flex w-[90%] max-h-[200px] m-auto flex-wrap justify-center items-center mb-8 text-white 
-  sm:hidden">
-<ButtonMain TextNotActive={`Все`} width={15} isClickProps={true}/>
-    {
-  productCategory().map(el=>
-<ButtonMain TextNotActive={el} isClickProps={true}/>
-  )
-}
-    </div>
+
     </div>
 
 )

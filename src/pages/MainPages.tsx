@@ -33,38 +33,42 @@ return(
 {/* <div className="max-w-[1200px] justify-center m-auto">
 <SliderTop products={product}/>
 </div> */}
-<div className="flex  w-[85%] pt-20 justify-center translate-x-[10%]">
+<div className="flex  w-[85%] pt-20 justify-center translate-x-[10%]
+
+sm:flex-col sm:translate-x-[10%]">
 
 <div className=" flex flex-col items-center mr-2">
 
-    <div className=""></div>
+
 
     <div 
     className=" w-[250px] h-[150px] mb-2  rounded relative overflow-hidden"
      id={`box-shadow`}
      >
 
-    <div className="icon w-[100%] h-[100%]  bg-hero-pattern bg-cover ease-in transition duration-300 ease-in-out hover:scale-110">
-    <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-20"></div>
+    <div className="icon flex flex-col justify-center w-[100%] h-[100%]  bg-hero-pattern bg-cover ease-in transition duration-300 ease-in-out text-xl hover:scale-110">
+    <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-10"></div>
+     <h1 className="text-white text-center pt-2 z-20">Товары для геймеров</h1>
+    <div className="flex w-[100%] justify-around mt-5">
+    <ButtonMain width={60} TextNotActive="подробнее" TextActive="Скрыть" color="white"/>
+
+    </div>
+
+    </div>
+    </div>
+  
+  
+    <div 
+    className=" w-[250px] h-[150px] mb-2  rounded relative overflow-hidden  "
+    id={`box-shadow`}
+    >
+    <div className="icon flex flex-col justify-center w-[100%] h-[100%]  bg-footer-texture bg-cover ease-in transition duration-300 ease-in-out text-xl hover:scale-110">
+    <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-10"></div>
     <h1 className="text-white text-center pt-2 ">Товары для геймеров</h1>
-
-    <div className="flex w-[100%] justify-around ">
-    <ButtonMain width={40} TextNotActive="подробнее" TextActive="Скрыть"/>
-
-    </div>
+    <div className="flex w-[100%] justify-around mt-5">
+    <ButtonMain width={60} TextNotActive="подробнее" TextActive="Скрыть" color="white"/>
 
     </div>
-    </div>
-  
-  
-    <div 
-    className=" w-[250px] h-[150px] mb-2  rounded relative overflow-hidden  "
-    id={`box-shadow`}
-    >
-    <div className="icon w-[100%] h-[100%]  bg-footer-texture bg-cover ease-in transition duration-300 ease-in-out hover:scale-110">
-    <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-20"></div>
-
-    <ButtonMain width={40} TextNotActive="подробнее" TextActive="Скрыть"/>
 
     
     </div>
@@ -75,10 +79,14 @@ return(
     className=" w-[250px] h-[150px] mb-2  rounded relative overflow-hidden  "
     id={`box-shadow`}
     >
-    <div className="icon w-[100%] h-[100%]  bg-foo bg-cover ease-in transition duration-300 ease-in-out hover:scale-110">
-    <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-20"></div>
-    <ButtonMain width={40} TextNotActive="подробнее" TextActive="Скрыть"/>
+    <div className="icon flex flex-col justify-center w-[100%] h-[100%]  bg-foo bg-cover ease-in transition duration-300 ease-in-out text-xl hover:scale-110">
+    <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute z-10"></div>
+    <h1 className="text-white text-center pt-2 ">Товары для геймеров</h1>
+    <div className="flex w-[100%] justify-around mt-5 ">
+    <ButtonMain width={60} TextNotActive="подробнее" TextActive="Скрыть" color="white"/>
     </div>
+
+    </div>``
     </div>
 
 
@@ -87,15 +95,21 @@ return(
 </div>
 
 <div 
-className="overflow-hidden w-[300px] h-[465px]"
+className="overflow-hidden w-[300px] h-[465px] 
+sm:m-auto sm:w-[250px]"
 id={`box-shadow`}
 >
 
-<div className="icon bg-foot bg-cover w-[100%] h-[100%] z-10 rounded relative ease-in transition duration-300 ease-in-out hover:scale-110">
+<div className=" icon flex flex-col justify-center bg-foot bg-cover w-[100%] h-[100%] z-10 rounded relative ease-in transition duration-300 ease-in-out text-xl hover:scale-110">
     <div className="w-[100%] h-[100%] bg-black opacity-[40%] absolute "></div>
+    <h1 className="text-white text-center pt-2 mt-2">Товары для геймеров</h1>
+    <div className="flex w-[100%] justify-center mt-5">
+    <ButtonMain width={60} TextNotActive="подробнее" TextActive="Скрыть" color="white"/>
+    </div>
 
+    </div>
 </div>
-</div>
+
 
 
 

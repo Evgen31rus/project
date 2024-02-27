@@ -33,7 +33,9 @@ return(
 <HelpZone/>
 
    <div className='relative flex flex-wrap max-w-[1500px] min-h-[300px] justify-center m-auto'>
-
+{
+   
+}
 
 {
 product&&product.length?

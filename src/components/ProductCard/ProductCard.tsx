@@ -40,7 +40,7 @@ export default function ProductCard({product}:PropTypes){
     <>
     <CSSTransition in={ShowElement} timeout ={200} classNames={`alert`} >
 <div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono 
-sm:100% sm:ml-5`}
+sm:100% sm:ml-5 sm:mt-2 sm:mb-2 `}
 onLoad={()=>setShowElement(!ShowElement)}
 >
 
@@ -49,7 +49,7 @@ onLoad={()=>setShowElement(!ShowElement)}
             <div  
 
             className={`relative text-white border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 rounded box-border min-w-60 max-w-[500px] max-h-[500px] block mr-5  mb-5 flex justify-center flex-col p-5 overflow-hidden transition duration-300 ease-in-out hover:scale-110 
-            
+            sm:hover:scale-100 
             `}
       
          id={`box-shadow`}
@@ -66,9 +66,10 @@ onLoad={()=>setShowElement(!ShowElement)}
                     <SaleProductCardError/>
             }      
   <div className="relative w-[100%] h-[180px] bg-black border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 z-30 cursor-pointer transition duration-300 ease-in-out m-auto"
-     onMouseOver={HandleVisibilityInfo}
-     onMouseOut={HandleVisibilityInfo}           
+     onMouseOver={()=>setIsMouseOver(true)}
+     onMouseOut={()=>setIsMouseOver(false)}           
   >
+
             {
                 product.name&&product.category&&product.photo?
                     <ImgProductCard product={product}/>
@@ -95,12 +96,16 @@ onLoad={()=>setShowElement(!ShowElement)}
             }
 <div className={`absolute 
 ${isMouseOver?'btnLikeActive':'btnLikeNotActive'}  
-`}>
+`}
+onMouseOver={()=>setIsMouseOver(true)}
+>
                 <ButtonMain width={100} TextActive="Избранно" TextNotActive="Нравится" handleAdd={HandleAddLikes} handleRemove={HandleRemoveLikes} dateParents={product}/>
 </div>
 <div className={`absolute
 ${isMouseOver?'btnInfoActive':'btnInfoNotActive'} 
-`}>
+`}
+onMouseOver={()=>setIsMouseOver(true)}
+>
                 <ButtonMain width={100}  TextNotActive="О товаре"  hedleAny={HandleIsOpenInfo} dateParents={product}/>
 </div>
        </div>

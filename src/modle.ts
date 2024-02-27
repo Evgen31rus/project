@@ -5,8 +5,8 @@ interface IBackendObject {
     price:number;
     saleStatus: boolean,
     sale: number,
-    id: string;
-    visible: boolean
+    id: string,
+    visible: boolean,
     info?: string
 ////////////////////////Возможные дополнения//////////////////
     //Производитель 

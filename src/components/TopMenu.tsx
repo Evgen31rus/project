@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch} from 'react-redux'
 import { RootState } from '../store/store';
 import { HandleswitchMobileMenu } from "../store/sliceSwitchMobileMenu";
+import ButtonMain from "./ButtonMain";
 
 
 
@@ -16,7 +17,7 @@ let countLikes = state.countLikes.value.length
 			
 	<>
 	<div className={` ${state.switchTeamSlice.nightTeam? 'bg-[#586784]': 'bg-[#2e3646]'} 
-	flex  justify-center w-[100%] min-h-[50px] fixed z-20 rounded border-b-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 z-50 items-center`}>
+	flex  justify-center w-[100%] min-h-[50px] fixed z-20 rounded border-b-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 z-40 items-center`}>
 		<div className={`flex flex-wrap justify-between max-w-[2500px] w-[800px] min-h-[50px]  items-center
 		sm:justify-around
 		`}>
@@ -93,10 +94,7 @@ let countLikes = state.countLikes.value.length
 
 
 
-			<NavLink to="Sign_in" 
-			className="w-[45px] h-[45px] bg-white rounded-full mr-[10px] cursor-pointer
-			sm:hidden"
-			id={`box-shadow`}></NavLink>
+			<NavLink to="Sign_in" className={`sm:hidden`}><ButtonMain TextNotActive={'Войти'} width={100} color={`white`}/></NavLink>
 
 		</div>
 

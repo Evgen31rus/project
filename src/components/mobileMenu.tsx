@@ -12,7 +12,7 @@ export default function MobileMenu(){
     return(
         <>
       <div
-className={`hidden flex-col w-[60%] h-[100%] bg-[#586784] fixed top-[0%] z-50 transition-all  text-3xl font-black
+className={`hidden flex-col w-[60%] h-[100%] bg-[#586784] fixed top-[0%] z-50 transition-all  text-2xl font-black
 ${
   switchMobuleMenu?
   'flex ': 'flex translate-x-[-100%]'
