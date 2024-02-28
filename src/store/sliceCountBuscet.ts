@@ -19,8 +19,10 @@ export const counterSlice = createSlice({
   reducers: {
     HandleAddProduct: (state, action) => {
       const data:IBackendObject = action.payload
-      state.value.push(data)
-      state.valueBuscket.push(1)
+      if(state.value.filter(el => el.id === data.id).length<1){
+        state.value.push(data)  
+        state.valueBuscket.push(1)
+      }
     },
     HandleRemoveProduct: (state, action) => {
       const data:string = action.payload

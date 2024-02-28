@@ -81,7 +81,7 @@ function App() {
   :
   <SpinerPagesLoading/>
 }
-    <SwitchTeam/>
+    <SwitchTeam visibilityMobile={false}/>
 
     <Footer/>
 

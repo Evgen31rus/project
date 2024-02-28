@@ -2,6 +2,7 @@ import { HandleswitchMobileMenu } from "../store/sliceSwitchMobileMenu"
 import {  useSelector, useDispatch } from 'react-redux'
 import { RootState } from "../store/store"
 import { NavLink } from "react-router-dom"
+import SwitchTeam from "./SwitchTeam"
 
 
 export default function MobileMenu(){
@@ -20,18 +21,24 @@ ${
 sm:flex
 `}
 >
-<div className=' flex pl-5 border-b-4 w-[90%] mb-2 pb-2 ml-2'>
 
-<a href="Sign_in" className="w-[45px] h-[45px] bg-white rounded-full mr-1
-max-sm:absolute max-sm:top-2 max-sm:right-2
-"
+<div className={`flex border-b-4 w-[100%] `}>
+
+<div className=' flex w-[45px] h-[45px] bg-white rounded-full mb-2 ml-2 mt-2 mr-2'
 id={`box-shadow`}
-></a>
+></div>
+
+<NavLink to="Sign_in" className=" flex items-center"
+onClick={()=>{
+  dispatch(HandleswitchMobileMenu())}}
+>
+
 Мой профиль
-
-
+</NavLink>
 
 </div>
+
+
 
   <div className='flex flex-col  w-[100%] translate-x-[20%] '>
 <NavLink
@@ -58,6 +65,10 @@ className={`cusor-pointer z-10 `}
 >Доставка</NavLink>
 
 </div>
+<div className={`ml-5 mt-5`}>
+<SwitchTeam visibilityMobile={true} />
+</div>
+
 </div>
         </>
     )

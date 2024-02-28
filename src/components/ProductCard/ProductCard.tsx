@@ -1,4 +1,4 @@
-import  {useState, } from "react";
+import  {useEffect, useState, } from "react";
 import IBackendObject from "../../modle";
 import { HandleAddProduct, HandleRemoveProduct } from "../../store/sliceCountBuscet";
 import { HandleAddLikes, HandleRemoveLikes } from "../../store/sliceCountLikes";
@@ -11,16 +11,20 @@ import PriceProductCard from "./PriceProductCard";
 import PriceProductCardError from "./PricePrroductCardError";
 import ImgProductCard from "./ImgProductCard";
 import ImgProductCardError from "./ImgProductCardError";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 
 type PropTypes ={
-    product:IBackendObject
+    product:IBackendObject,
+    marginBottom?:boolean,
         }
 
 
 
-export default function ProductCard({product}:PropTypes){
+export default function ProductCard({product, marginBottom}:PropTypes){
 
+    const state = useSelector((state:RootState)=> state)
     const [isMouseOver ,setIsMouseOver] = useState(false)
     const [infoActive, setInfoActive] = useState(false)
     const[ShowElement, setShowElement] = useState(false)
@@ -34,13 +38,15 @@ export default function ProductCard({product}:PropTypes){
            }
 
 
-
+           useEffect(()=>{
+console.log(state.countBuscket.value.filter(el=>el.id===product.id).length)
+           }, [state.countBuscket.value])
 
     return(
     <>
     <CSSTransition in={ShowElement} timeout ={200} classNames={`alert`} >
 <div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono 
-sm:100% sm:ml-5 sm:mt-2 sm:mb-2 `}
+sm:100% sm:ml-5 sm:mt-2 sm:${marginBottom? 'mb-2 ': '0'}`}
 onLoad={()=>setShowElement(!ShowElement)}
 >
 
@@ -132,7 +138,7 @@ onMouseOver={()=>setIsMouseOver(true)}
     product.name&&product.category&&product.photo?
 
         <div className='flex justify-around'>
-            <ButtonMain width={70} TextActive='Товар добавлен' TextNotActive='В корзину' handleAdd={HandleAddProduct} handleRemove={HandleRemoveProduct} dateParents={product}/>
+            <ButtonMain width={80}  TextNotActive={`${state.countBuscket.value.filter(el=>el.id===product.id).length? 'товар добавлен': 'В корзину'}`} handleAdd={HandleAddProduct} handleRemove={HandleRemoveProduct} dateParents={product}/>
         </div>
                 :
             <ButtonMainError/>

@@ -41,7 +41,7 @@ return(
 product&&product.length?
 product.map(element=>
 <CSSTransition in={showElement} timeout={200} classNames={`alert`} >
-<ProductCard product={element} /> 
+<ProductCard product={element} marginBottom={true}/> 
 </CSSTransition>
 )
 :

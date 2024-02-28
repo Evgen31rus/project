@@ -3,17 +3,21 @@ import {  useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../store/store';
 import { HandleSwitchTeam } from '../store/SliceTeam';
 
+type propsTypes ={
+visibilityMobile: boolean
+}
 
-export default function SwitchTeam(){
+export default function SwitchTeam({visibilityMobile}:propsTypes){
     let dispatch = useDispatch()
     let state = useSelector((state:RootState) => state)
     return(
         <div 
 onClick={()=>dispatch(HandleSwitchTeam())}
-className={` fixed icon
+className={` icon
+${visibilityMobile? '' : 'fixed'}
 ${state.switchTeamSlice.nightTeam?'gradient-night-team':''}
-bottom-[20%] left-[0.1%]  w-[100px] bg-[#424e65] h-[40px] flex items-center  rounded-full border-[2px] rounded border-[#ec4899] cursor-pointer z-40 animate-bounce
-sm:hidden`}
+${visibilityMobile? 'mt-2 ml-10 ' : 'bottom-[20%] left-[0.1%] '}   w-[100px] bg-[#424e65] h-[40px] flex items-center  rounded-full border-[2px] rounded border-[#ec4899] cursor-pointer z-40 animate-bounce
+sm:${!visibilityMobile? 'hidden': ''} ` } 
 id={`box-shadow`}
 >
   <svg id="Icons" xmlns="http://www.w3.org/2000/svg" fill={`${state.switchTeamSlice.nightTeam?'#fbec5d':''}`} viewBox="0 0 48 48"

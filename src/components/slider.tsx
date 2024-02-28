@@ -70,7 +70,7 @@ className={`   flex transition duration-500 ease-in-out `}>
 products.filter((element:IBackendObject) =>
     element.saleStatus
 ).map(element=>
-<ProductCard  product={element}/>
+<ProductCard  product={element} marginBottom={false}/>
 )
 }
 </div>

@@ -123,7 +123,9 @@ id={`box-shadow`}
 
 
 <div className="flex  items-center flex-col max-w-[2000px] m-auto">
-<h2 className="flex text-center h-[80px] items-center text-5xl"> Успейте купить!</h2>
+<h2 className="flex text-center h-[80px] items-center text-5xl 
+sm:text-3xl
+"> Успейте купить!</h2>
 
 
 

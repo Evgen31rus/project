@@ -99,7 +99,7 @@ background: linear-gradient(315deg, rgb(144, 139, 148), rgb(110, 98, 118), rgb(5
 
 h1,h2, #text-shadow{
   text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
-  z-index: 40;
+  z-index: 10;
 
 }
 #text-shadow-p{
