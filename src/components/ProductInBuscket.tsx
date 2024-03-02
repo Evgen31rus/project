@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import '../index.css'
+import { CSSTransition } from "react-transition-group";
 import IBackendObject from "../modle";
 import { useSelector, useDispatch } from "react-redux";
 import { HandleAddProduct , HandleRemoveProduct} from "../store/sliceCountBuscet";
@@ -14,7 +15,7 @@ export default function ProductInBuscket({product}:PropTypes){
 
     let state = useSelector((state:RootState) => state)
     const [count, setCount ] = useState<number>(1)
-    const  [show, setShow ] = useState(true)
+    const  [show, setShow ] = useState(false)
     const nodeRef = useRef<HTMLDivElement>(null)
 
 
@@ -25,38 +26,30 @@ export default function ProductInBuscket({product}:PropTypes){
 return(
     <>
 
+<CSSTransition in={show} timeout ={200} classNames={`alert`} >
 
 
-
-<div  ref={nodeRef} className="flex 
-sm:flex-col
+<div  ref={nodeRef} className="flex p-5
+sm:flex-col sm:mt-10
 " 
-
+onLoad={()=>setShow(!show)}
 >
     {
         product.info&&product.name&&product.photo?
 
 <div  className="flex max-w-[1200px] min-h-[250px] items-center rounded border-[2px] border-cyan-300 pl-2 mb-5 relative ml-2
-sm:flex-col sm:max-h-[520px] sm:w-[60%] sm:m-auto sm:mb-5 sm:items-center
+sm:flex-col sm:max-h-[520px] sm:w-[90%] sm:m-auto sm:mb-5 
 "
 id={`box-shadow`}
 >
-<button className={`hidden icon  relative button-gradient w-[90%] ml-1 justify-center h-[40px] border-[2px]  rounded z-20 p-4 top-[1%] right-[1%] bg-violet-600 items-center text-white
-sm:flex 
-`}
-onClick={()=>{
-    dispatch(HandleRemoveProduct(product.id))
-}}
-id={`button-gradient`}>
-убрать из корзины
-</button>
+
 
 <svg
-className=" absolute top-[-11%] right-[-3%] cursor-pointer 
-sm:hidden
-"
+className=" absolute top-[-7%] right-[-2%] cursor-pointer 
+sm:top-[-4%] sm:right-[-5%]"
 onClick={()=>{
     dispatch(HandleRemoveProduct(product.id))
+    setShow(!show)
 }}
   xmlns="http://www.w3.org/2000/svg"
   width="45"
@@ -73,7 +66,7 @@ onClick={()=>{
 </svg>
 
 <div className="absolute right-[5%] flex flex-col items-center bg-white rounded justify-center
-sm:flex-row sm:left-[2%] sm:right-[0%]  sm:bottom-[2%] sm:w-[40%]
+sm:flex-row sm:left-[2%] sm:right-[0%]  sm:bottom-[2%] sm:w-[40%] sm:text-xs 
 "
 id={`box-shadow`}
 >
@@ -87,10 +80,10 @@ if(count>=99){
 }
 }}
 className="icon w-[50px] h-[30px] border-[2px] rounded relative text-white bg-[#2e3646] hover:bg-violet-600 
-sm:h-[33px] 
+sm:h-[33px]  sm:border-pink-500
 "> + </button>
 <p className={` flex
-sm:h-[100%] min-w-[30%] sm:w-[60%] sm:justify-center
+sm:h-[100%] min-w-[30%] sm:w-[60%] sm:justify-center 
 `}>{count}<span className={`flex sm:ml-1 `}>шт.</span></p>
 <button 
 onClick={()=>{
@@ -102,20 +95,21 @@ onClick={()=>{
     }
 }}
 className="icon w-[50px] h-[30px] border-[2px] rounded relative text-white bg-[#2e3646] hover:bg-violet-600
-sm:h-[33px]
+sm:h-[33px] sm:border-pink-500
 "> - </button>
 </div>
 
 <div className=" absolute bottom-[-10%] right-[0%]  rounded text-center flex  justify-center bg-green  border-[2px] shadow-inner
-sm: bottom-[2%] sm:right-[2%] sm:w-[45%]
+sm: bottom-[2%] sm:right-[2%] sm:w-[45%] sm:text-xs  sm:border-pink-500
 "
 id={`box-shadow`}
 >
-<button className=" icon relative w-[100px] h-[30px]  text-center flex  justify-center bg-violet-600 border-r-[2px]  ">купить</button>
-<span className="w-[100px] h-[30px]  text-center flex flex justify-center bg-white ">{product.price * count} <span className=" right-[1%] ml-1">$</span></span>
+<button className=" icon relative w-[100px] h-[30px]  text-center flex  justify-center bg-violet-600 border-r-[2px]  items-center">купить</button>
+<span className="w-[100px] h-[30px]  text-center flex flex justify-center bg-white items-center">{product.price * count} <span className=" right-[1%] ml-1">$</span></span>
 </div>
 
-    <div className="relative w-[250px] h-[200px] rounded border-[2px] border-cyan-300 bg-cover bg-center z-20"
+    <div className="relative w-[250px] h-[200px] rounded border-[2px] border-cyan-300 bg-cover bg-center z-20
+    sm:mt-5 sm:w-[90%] sm:mr-2"
     style={{
         backgroundImage: `url('${product.photo}')`
     }}
@@ -124,8 +118,8 @@ id={`box-shadow`}
 <img src={product.photo} alt={product.name} className={`w-[0px] h-[0px]`}/>
 </div>
 
-<div className="pl-5 flex w-[55%] justify-between bg-white h-[80%] rounded ml-2
-sm:w-[90%] sm:h-[40%] sm:p-1 sm:mt-2
+<div className="pl-5 flex w-[55%] justify-between bg-white h-[80%] max-h-[200px] rounded ml-2
+sm:w-[90%] sm:h-[40%] sm:p-1 sm:mt-2 sm:mr-3
 "
 >
 
@@ -164,8 +158,7 @@ id={`box-shadow`}
 </div>
 }
 </div>
-
-
+</CSSTransition>
 
 </>
         
