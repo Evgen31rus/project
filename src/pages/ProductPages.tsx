@@ -32,7 +32,9 @@ return(
    <>
 <HelpZone/>
 
-   <div className='relative flex flex-wrap max-w-[1500px] min-h-[300px] justify-center m-auto'>
+   <div className='relative flex flex-wrap max-w-[1500px] justify-center m-auto
+   sm:w-[100%] sm:pl-2
+   '>
 {
    
 }

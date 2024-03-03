@@ -19,7 +19,7 @@ let countLikes = state.countLikes.value.length
 	<div className={` ${state.switchTeamSlice.nightTeam? 'bg-[#586784]': 'bg-[#2e3646]'} 
 	flex  justify-center w-[100%] min-h-[50px] fixed z-20 rounded border-b-[2px] rounded border-cyan-300  z-40 items-center`}>
 		<div className={`flex flex-wrap justify-between max-w-[2500px] w-[800px] min-h-[50px]  items-center
-		sm:justify-around sm:max-w-[800px]
+		sm:justify-around  sm:w-[100%]
 		`}>
 
 
