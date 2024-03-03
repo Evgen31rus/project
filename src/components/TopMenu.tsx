@@ -98,7 +98,7 @@ let countLikes = state.countLikes.value.length
 
 		</div>
 
-		<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" width={`50px`}
+		<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"  fill={`${state.switchTeamSlice.nightTeam?'': '#ffff'}`} x="0px" y="0px" width={`50px`}
 		className={`cursor-pointer hidden
 		sm:flex
 		`}

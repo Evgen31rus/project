@@ -2,9 +2,9 @@
     {
       "category": "Видеокарты",
       "name": "GeForce RTX 4060 RTX4060",
-      "photo": "https://img.freepik.com/free-photo/smart-microchip-background-on-a-motherboard-closeup-technology_53876-108531.jpg?w=1480&t=st=1704317693~exp=1704318293~hmac=354f4cadd0232bcf1239f864331df5f28a063f4fb2a93fdfdc8804832a26b390",
+      "photo": "https://torg-pc.ru/upload/resize_cache/iblock/6b3/b9fmg6m3f12jeuctl4mafv1rqyy5lapo/750_650_140cd750bba9870f18aada2478b24840a/ROG-STRIX-RTX4060-O8G-GAMING.webp",
       "price": 500,
-      "saleStatus": true,
+      "saleStatus": false,
       "sale": 0,
       "id": "1",
       "visible": false,

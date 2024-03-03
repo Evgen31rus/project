@@ -45,8 +45,8 @@ console.log(state.countBuscket.value.filter(el=>el.id===product.id).length)
     return(
     <>
     <CSSTransition in={ShowElement} timeout ={200} classNames={`alert`} >
-<div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono 
-sm:100% sm:ml-5 sm:mt-2 sm:${marginBottom? 'mb-2 ': '0'}`}
+<div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono mb-7
+sm:100% sm:ml-10 sm:mt-2 sm:${marginBottom? 'mb-2 ': '0'}`}
 onLoad={()=>setShowElement(!ShowElement)}
 >
 
@@ -71,7 +71,9 @@ onLoad={()=>setShowElement(!ShowElement)}
                 :
                     <SaleProductCardError/>
             }      
-  <div className="relative w-[100%] h-[180px] bg-black border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 z-30 cursor-pointer transition duration-300 ease-in-out m-auto"
+  <div className={`relative w-[100%] h-[180px]  border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 z-30 cursor-pointer transition duration-300 ease-in-out m-auto
+  ${state.switchTeamSlice.nightTeam? 'bg-white': 'bg-black'}
+        `}
      onMouseOver={()=>setIsMouseOver(true)}
      onMouseOut={()=>setIsMouseOver(false)}           
   >
@@ -116,10 +118,21 @@ onMouseOver={()=>setIsMouseOver(true)}
 </div>
        </div>
    </div>
-   <div className={`info flex justify-around m-2 `} >
+   <div className={`info flex-col justify-around m-2 items-center sm:text-sm
+     ${!state.switchTeamSlice.nightTeam? 'text-white': 'text-black'}
+   `} >
 {
       product.name&&product.category&&product.photo?
-      <h3 className="overflow-x-hidden max-w-[150px]"> {product.category}</h3> 
+      <div className={`flex items-center mb-1 sm:mb-2`}>
+      <h3 className={`overflow-x-hidden max-w-[150px] truncate items-center mr-2`}> {product.category}</h3>  
+      <span className={`p-1 bg-[#008000] rounded mr-1`}>GIGABYTE</span>
+      <span className={`p-1 bg-[#008000] rounded flex items-center `}>
+      <svg id="Layer_1"  version="1.1" viewBox="0 0 612 792" xmlns="http://www.w3.org/2000/svg" height={20} width={20}><style type="text/css">
+	
+</style><g><path  d="M562,396c0-141.4-114.6-256-256-256S50,254.6,50,396s114.6,256,256,256S562,537.4,562,396L562,396z    M501.7,296.3l-241,241l0,0l-17.2,17.2L110.3,421.3l58.8-58.8l74.5,74.5l199.4-199.4L501.7,296.3L501.7,296.3z"/></g></svg>
+        
+        Оригинал</span>
+      </div>
       :
       <div className={`flex  bg-black w-[100px] h-[25px] ml-2 rounded`}></div>
 }
