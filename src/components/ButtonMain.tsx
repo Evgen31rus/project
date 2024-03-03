@@ -13,10 +13,11 @@ handleRemove?: any,
 hedleAny?:any,
 dateParents?:IBackendObject|undefined
 isClickProps?:boolean,
-color?:string
+color?:string,
+bg?:string
 }
 
-export default function ButtonMain({width,TextActive, TextNotActive, handleAdd, handleRemove, dateParents, hedleAny, isClickProps, color}:PropTypes, ){
+export default function ButtonMain({width,TextActive, TextNotActive, handleAdd, handleRemove, dateParents, hedleAny, isClickProps, color, bg}:PropTypes, ){
     const [isClick, setIsClick]= useState(false)
 
     const HandleIsClick = ()=>{
@@ -26,6 +27,7 @@ export default function ButtonMain({width,TextActive, TextNotActive, handleAdd, 
 
     return(
 <>
+<div className={` w-[${width}%] border-[2px] rounded border-pink-500 p-[2px] m-2 z-10 hover:scale-110 `}>
     <button 
 onClick={()=>{
     HandleIsClick()
@@ -36,8 +38,8 @@ if(handleAdd&&handleRemove&&dateParents!==undefined){
 }
 
 }}
-    className={`w-[${width}%] text-${color} icon opacity-100 flex m-2 border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500   justify-center mt-2 mb-2 p-2 z-10  ease-in transition duration-300 ease-in-out  hover:scale-110 
-    ${isClickProps&&isClick? 'button-gradient' : ''}
+    className={` icon relative w-[100%] text-${color}   opacity-100 flex  border-[2px] rounded border-cyan-300    justify-center   p-2   ease-in transition duration-300 ease-in-out  
+    ${isClickProps&&isClick? 'button-gradient' : 'button-gradient'}
     sm:max-w-[${width}%] sm:text-xs
     `} 
              id={`button-gradient`}
@@ -49,6 +51,7 @@ if(handleAdd&&handleRemove&&dateParents!==undefined){
             TextNotActive
             } 
     </button> 
+    </div>
 </>
     )
 }

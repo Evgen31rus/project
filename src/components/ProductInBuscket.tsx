@@ -32,7 +32,6 @@ return(
 <div  ref={nodeRef} className="flex p-5
 sm:flex-col sm:mt-10
 " 
-onLoad={()=>setShow(!show)}
 >
     {
         product.info&&product.name&&product.photo?
@@ -49,7 +48,7 @@ className=" absolute top-[-7%] right-[-2%] cursor-pointer
 sm:top-[-4%] sm:right-[-5%]"
 onClick={()=>{
     dispatch(HandleRemoveProduct(product.id))
-    setShow(!show)
+    setShow(true)
 }}
   xmlns="http://www.w3.org/2000/svg"
   width="45"
@@ -66,7 +65,7 @@ onClick={()=>{
 </svg>
 
 <div className="absolute right-[5%] flex flex-col items-center bg-white rounded justify-center
-sm:flex-row sm:left-[2%] sm:right-[0%]  sm:bottom-[2%] sm:w-[40%] sm:text-xs 
+sm:flex-row sm:left-[2%] sm:right-[0%]  sm:bottom-[2%] sm:w-[40%] sm:text-xs sm:border-[2px] sm:border-pink-500
 "
 id={`box-shadow`}
 >
@@ -80,7 +79,7 @@ if(count>=99){
 }
 }}
 className="icon w-[50px] h-[30px] border-[2px] rounded relative text-white bg-[#2e3646] hover:bg-violet-600 
-sm:h-[33px]  sm:border-pink-500
+ sm:border-[0px] sm:rounded-none
 "> + </button>
 <p className={` flex
 sm:h-[100%] min-w-[30%] sm:w-[60%] sm:justify-center 
@@ -95,7 +94,7 @@ onClick={()=>{
     }
 }}
 className="icon w-[50px] h-[30px] border-[2px] rounded relative text-white bg-[#2e3646] hover:bg-violet-600
-sm:h-[33px] sm:border-pink-500
+ sm:border-[0px] sm:rounded-none
 "> - </button>
 </div>
 
@@ -108,14 +107,19 @@ id={`box-shadow`}
 <span className="w-[100px] h-[30px]  text-center flex flex justify-center bg-white items-center">{product.price * count} <span className=" right-[1%] ml-1">$</span></span>
 </div>
 
-    <div className="relative w-[250px] h-[200px] rounded border-[2px] border-cyan-300 bg-cover bg-center z-20
-    sm:mt-5 sm:w-[90%] sm:mr-2"
+<div className={`${state.switchTeamSlice.nightTeam? 'bg-white' : 'bg-black'} w-[250px] h-[200px]  z-10 
+sm:mt-5 sm:w-[90%] sm:mr-2
+`}>
+    <div className="relative w-[100%] h-[100%] rounded border-[2px] border-cyan-300 bg-cover bg-center z-40"
     style={{
         backgroundImage: `url('${product.photo}')`
     }}
     >
 
 <img src={product.photo} alt={product.name} className={`w-[0px] h-[0px]`}/>
+
+</div>
+
 </div>
 
 <div className="pl-5 flex w-[55%] justify-between bg-white h-[80%] max-h-[200px] rounded ml-2

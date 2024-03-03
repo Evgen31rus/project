@@ -60,7 +60,7 @@ return(
     "
 
     >
-      <div className='flex w-[50%] h-[50px]  items-center  border-[2px] rounded border-cyan-300 outline outline-offset-2 outline-pink-500 
+      <div className='flex w-[50%] h-[50px]  items-center  border-[2px] rounded border-cyan-300  
         sm:mt-[100px] sm:w-[80%]'>
 <div className="flex w-[100%] z-20 p-2 relative box-border justify-center"
  id={`box-shadow`}

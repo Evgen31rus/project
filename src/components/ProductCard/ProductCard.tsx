@@ -45,22 +45,23 @@ console.log(state.countBuscket.value.filter(el=>el.id===product.id).length)
     return(
     <>
     <CSSTransition in={ShowElement} timeout ={200} classNames={`alert`} >
-<div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono mb-7
+
+<div className={ `relative w-[350px] duration-500 ease-in-out h-[400px] font-mono mb-10
 sm:100% sm:ml-10 sm:mt-2 sm:${marginBottom? 'mb-2 ': '0'}`}
 onLoad={()=>setShowElement(!ShowElement)}
 >
 
   
-       
+<div className={`border-[2px] rounded border-pink-500 p-[2px] min-w-60 max-w-[500px] max-h-[500px] mr-5 mb-5 hover:scale-110
+            sm:hover:scale-100 
+`}>
             <div  
 
-            className={`relative text-white border-[2px] border-cyan-300 outline outline-offset-2 outline-pink-500 rounded box-border min-w-60 max-w-[500px] max-h-[500px] block mr-5  mb-5 flex justify-center flex-col p-5 overflow-hidden transition duration-300 ease-in-out hover:scale-110 
-            sm:hover:scale-100 
-            `}
+            className={`relative text-white border-[2px] border-cyan-300 rounded box-border w-[100%] h-[100%] block  flex justify-center flex-col p-5 overflow-hidden transition duration-300 ease-in-out  `}
       
          id={`box-shadow`}
             >
-            <div className='w-full  h-full bg-black  absolute opacity-30 m-[-20px] flex rounded z-0 '></div>
+            <div className='w-full  h-full   absolute opacity-30 m-[-20px] flex rounded z-0 '></div>
     
    
       <div className={`icon flex flex-col overflow-hidden rounded z-10 `} id={product.id} >
@@ -158,6 +159,7 @@ onMouseOver={()=>setIsMouseOver(true)}
             
   }
   
+    </div>
     </div>
     </div>
     </CSSTransition>
